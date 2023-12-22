@@ -50,7 +50,7 @@ func dist_Levenshtein(chaine1, chaine2 string) int {
 
 func main() {
 	mot1 := "niche"
-	mot2 := "chien"
+	mot2 := "chiens"
 
 	distance := dist_Levenshtein(mot1, mot2)
 
