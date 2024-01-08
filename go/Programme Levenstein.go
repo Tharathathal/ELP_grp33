@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	s1 := "kitten"
+	s1 := "hey"
 	s2 := "sitting"
 	fmt.Printf("The distance between %v and %v is %v\n",
 		s1, s2, levenshtein.Distance(s1, s2))
