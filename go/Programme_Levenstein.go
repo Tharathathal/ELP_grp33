@@ -32,5 +32,4 @@ func main() {
 	for i := 0; i < len(mots); i++ {
 		lev_dist(mot_client, mots[i])
 	}
-
 }
