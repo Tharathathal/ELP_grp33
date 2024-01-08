@@ -15,7 +15,7 @@ func lev_dist(mot_client, mot string) {
 func main() {
 	fmt.Print("Choisissez le mot qui servira de comparatif avec la liste: ")
 	var mot_client string
-	fmt.Scanln(&mot_client)
+	fmt.Scanf("%s", &mot_client)
 
 	var mots = []string{
 		"chat", "chien", "maison", "voiture", "arbre",
@@ -32,4 +32,5 @@ func main() {
 	for i := 0; i < len(mots); i++ {
 		lev_dist(mot_client, mots[i])
 	}
+
 }
