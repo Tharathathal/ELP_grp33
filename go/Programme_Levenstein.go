@@ -7,6 +7,8 @@ import (
 )
 
 func main() {
+	mot_client := "câble"
+
 	mots := []string{
 		"chat", "chien", "maison", "voiture", "arbre",
 		"ordinateur", "fenêtre", "porte", "jardin", "fleur",
@@ -18,6 +20,10 @@ func main() {
 		"école", "professeur", "élève", "livre", "crayon",
 		"piano", "guitare", "musique", "film", "photo",
 		"amour", "amitié", "rire", "bonheur",
+	}
+	for _, mot := range mots {
+		fmt.Printf("The distance between %v and %v is %v\n",
+			mot_client, mot, levenshtein.Distance(mot_client, mot))
 	}
 
 	s1 := "kitten"
