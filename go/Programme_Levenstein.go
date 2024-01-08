@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/arbovm/levenshtein"
 )
@@ -41,6 +42,7 @@ func main() {
 		"alcoolisme",
 	}
 	for i := 0; i < len(mots); i++ {
-		lev_dist(mot_client, mots[i])
+		go lev_dist(mot_client, mots[i])
+		time.Sleep(10 * time.Millisecond)
 	}
 }
