@@ -13,7 +13,9 @@ func lev_dist(mot_client, mot string) {
 }
 
 func main() {
-	mot_client := "câble"
+	fmt.Print("Choisissez le mot qui servira de comparatif avec la liste: ")
+	var mot_client string
+	fmt.Scanln(&mot_client)
 
 	mots := []string{
 		"chat", "chien", "maison", "voiture", "arbre",
@@ -36,4 +38,5 @@ func main() {
 	fmt.Printf("The distance between %v and %v is %v\n",
 		s1, s2, levenshtein.Distance(s1, s2))
 	// -> The distance between kitten and sitting is 3
+
 }
