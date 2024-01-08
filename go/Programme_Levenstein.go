@@ -17,7 +17,7 @@ func main() {
 	var mot_client string
 	fmt.Scanln(&mot_client)
 
-	mots := []string{
+	var mots = []string{
 		"chat", "chien", "maison", "voiture", "arbre",
 		"ordinateur", "fenêtre", "porte", "jardin", "fleur",
 		"soleil", "lune", "étoile", "montagne", "plage",
@@ -29,14 +29,7 @@ func main() {
 		"piano", "guitare", "musique", "film", "photo",
 		"amour", "amitié", "rire", "bonheur",
 	}
-	for _, mot := range mots {
-		go lev_dist(mot_client, mot)
+	for i := 0; i < len(mots); i++ {
+		lev_dist(mot_client, mots[i])
 	}
-
-	s1 := "kitten"
-	s2 := "sitting"
-	fmt.Printf("The distance between %v and %v is %v\n",
-		s1, s2, levenshtein.Distance(s1, s2))
-	// -> The distance between kitten and sitting is 3
-
 }
