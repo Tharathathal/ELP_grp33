@@ -38,6 +38,7 @@ func main() {
 		"communication", "connexion", "introspection", "interactions", "collaboration",
 		"inclusion", "autonomie", "accomplissement", "épanouissement", "bienveillance",
 		"altruisme", "solidarité", "gratitude", "tolérance", "acceptation",
+		"alcoolisme",
 	}
 	for i := 0; i < len(mots); i++ {
 		lev_dist(mot_client, mots[i])
