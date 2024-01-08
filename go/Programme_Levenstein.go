@@ -6,6 +6,12 @@ import (
 	"github.com/arbovm/levenshtein"
 )
 
+func lev_dist(mot_client, mot string) {
+	fmt.Printf("The distance between %v and %v is %v\n",
+		mot_client, mot, levenshtein.Distance(mot_client, mot))
+
+}
+
 func main() {
 	mot_client := "câble"
 
@@ -22,8 +28,7 @@ func main() {
 		"amour", "amitié", "rire", "bonheur",
 	}
 	for _, mot := range mots {
-		fmt.Printf("The distance between %v and %v is %v\n",
-			mot_client, mot, levenshtein.Distance(mot_client, mot))
+		go lev_dist(mot_client, mot)
 	}
 
 	s1 := "kitten"
