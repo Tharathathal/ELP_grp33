@@ -8,10 +8,11 @@ import (
 	"github.com/arbovm/levenshtein"
 )
 
-func lev_dist(mot_client, mot string) {
+func lev_dist(mot_client, mot string, conn net.Conn) {
 	//Calcule la distance de Levenshtein grâce à la library
-	fmt.Printf("- %v est de %v\n",
-		mot, levenshtein.Distance(mot_client, mot))
+	réponse := "- " + mot + " est de " + string(levenshtein.Distance(mot_client, mot)) + "\n"
+	fmt.Printf(réponse)
+	conn.Write([]byte(réponse))
 }
 
 func handleClient(conn net.Conn) {
@@ -53,12 +54,13 @@ func handleClient(conn net.Conn) {
 		"Léonie",
 	}
 
-	mot_client = string(buffer[:n])
-	fmt.Println("La distance de Levenshtein entre %v et :\n", mot_client)
+	mot_client := string(buffer[:n])
+	fmt.Printf("La distance de Levenshtein entre %v et :\n", mot_client)
+	conn.Write([]byte("La distance de Levenshtein entre ce prénom et :"))
 
 	//Comparaison à chaque prénom de la liste avec des goroutines
 	for i := 0; i < len(prénoms); i++ {
-		go lev_dist(mot_client, prénoms[i])
+		go lev_dist(mot_client, prénoms[i], conn)
 		time.Sleep(10 * time.Millisecond)
 	}
 
