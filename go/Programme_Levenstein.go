@@ -65,7 +65,7 @@ func main() {
 		"Léonie",
 	}
 	for i := 0; i < len(mots); i++ {
-		go lev_dist(mot_client, mots[i])
+		go lev_dist(mot_client, prénoms[i])
 		time.Sleep(10 * time.Millisecond)
 	}
 }
