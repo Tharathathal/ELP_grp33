@@ -55,7 +55,7 @@ func handleClient(conn net.Conn) {
 	}
 
 	mot_client := string(buffer[:n])
-	réponse := "La distance de Levenshtein entre ce prénom et :\n"
+	réponse := "La distance de Levenshtein entre votre prénom et :\n"
 	fmt.Printf("La distance de Levenshtein entre %v et :\n", mot_client)
 
 	//Comparaison à chaque prénom de la liste avec des goroutines

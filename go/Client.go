@@ -40,6 +40,6 @@ func main() {
 		}
 
 		message := string(buffer[:n])
-		fmt.Println("Message from server: " + message)
+		fmt.Println("-- Message from server: --\n " + message)
 	}
 }
