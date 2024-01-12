@@ -22,7 +22,7 @@ func handleClient(conn net.Conn) {
 	conn.Write([]byte("Quel prénom voulez-vous comparer ?"))
 
 	buffer := make([]byte, 1024)
-	mot_client, err := conn.Read(buffer)
+	n, err := conn.Read(buffer)
 	if err != nil {
 		fmt.Println("Erreur de lecture:", err)
 		return
@@ -53,6 +53,7 @@ func handleClient(conn net.Conn) {
 		"Léonie",
 	}
 
+	mot_client = string(buffer[:n])
 	fmt.Println("La distance de Levenshtein entre %v et :\n", mot_client)
 
 	//Comparaison à chaque prénom de la liste avec des goroutines
