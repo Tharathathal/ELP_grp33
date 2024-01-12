@@ -8,16 +8,15 @@ import (
 )
 
 func main() {
-
-	// connect to server
-	conn, err := net.Dial("tcp", "localhost:8080")
-	if err != nil {
-		fmt.Println("Error:", err)
-		return
-	}
-	defer conn.Close()
-
 	for {
+		// connect to server
+		conn, err := net.Dial("tcp", "localhost:8080")
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
+		defer conn.Close()
+
 		// what to send?
 		reader := bufio.NewReader(os.Stdin)
 		fmt.Print("Donnez-nous votre prénom pour tester votre compatibilité: ")
