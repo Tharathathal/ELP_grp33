@@ -10,7 +10,13 @@ import (
 func main() {
 
 	// connect to server
-	conn, _ := net.Dial("tcp", "127.0.0.1:8000")
+	conn, err := net.Dial("tcp", "localhost:8080")
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	defer conn.Close()
+
 	for {
 		// what to send?
 		reader := bufio.NewReader(os.Stdin)

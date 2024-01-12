@@ -10,7 +10,7 @@ import (
 
 func lev_dist(mot_client, mot string, conn net.Conn) {
 	//Calcule la distance de Levenshtein grâce à la library
-	réponse := "- " + mot + " est de " + string(levenshtein.Distance(mot_client, mot)) + "\n"
+	réponse := "- " + mot + " est de " + string(rune(levenshtein.Distance(mot_client, mot))) + "\n"
 	fmt.Printf(réponse)
 	conn.Write([]byte(réponse))
 }
