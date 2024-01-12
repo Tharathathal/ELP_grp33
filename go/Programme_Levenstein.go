@@ -3,16 +3,18 @@ package main
 import (
 	"fmt"
 	"net"
+	"strconv"
 	"time"
 
 	"github.com/arbovm/levenshtein"
 )
 
-func lev_dist(mot_client, mot string, conn net.Conn) {
+func lev_dist(mot_client, mot string, rep_global chan string) {
 	//Calcule la distance de Levenshtein grâce à la library
-	réponse := "- " + mot + " est de " + string(rune(levenshtein.Distance(mot_client, mot))) + "\n"
-	fmt.Printf(réponse)
-	conn.Write([]byte(réponse))
+	dist := strconv.Itoa(levenshtein.Distance(mot_client, mot))
+	rep := "- " + mot + " est de " + dist + "\n"
+	fmt.Printf(rep)
+	rep_global <- rep
 }
 
 func handleClient(conn net.Conn) {
@@ -20,8 +22,6 @@ func handleClient(conn net.Conn) {
 	fmt.Println("Connexion établie.")
 
 	//Communication avec le serveur
-	conn.Write([]byte("Quel prénom voulez-vous comparer ?"))
-
 	buffer := make([]byte, 1024)
 	n, err := conn.Read(buffer)
 	if err != nil {
@@ -55,17 +55,21 @@ func handleClient(conn net.Conn) {
 	}
 
 	mot_client := string(buffer[:n])
+	réponse := "La distance de Levenshtein entre ce prénom et :\n"
 	fmt.Printf("La distance de Levenshtein entre %v et :\n", mot_client)
-	conn.Write([]byte("La distance de Levenshtein entre ce prénom et :"))
 
 	//Comparaison à chaque prénom de la liste avec des goroutines
 	for i := 0; i < len(prénoms); i++ {
-		go lev_dist(mot_client, prénoms[i], conn)
+		rep_global := make(chan string, 1)
+		go lev_dist(mot_client, prénoms[i], rep_global)
+		rep := <-rep_global
+		réponse += rep
 		time.Sleep(10 * time.Millisecond)
 	}
 
 	//Incrémente la liste des prénoms
 	prénoms = append(prénoms, mot_client)
+	conn.Write([]byte(réponse))
 }
 
 func main() {

@@ -21,12 +21,25 @@ func main() {
 		// what to send?
 		reader := bufio.NewReader(os.Stdin)
 		fmt.Print("Donnez-nous votre prénom pour tester votre compatibilité: ")
-		text, _ := reader.ReadString('\n')
-		fmt.Printf("Votre prénom est: ", text)
+		text, err := reader.ReadString('\n')
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
+		fmt.Printf("Votre prénom est: %v", text)
+
 		// send to server
 		fmt.Fprintf(conn, text+"\n")
+
 		// wait for reply
-		message, _ := bufio.NewReader(conn).ReadString('\n')
-		fmt.Print("Message from server: " + message)
+		buffer := make([]byte, 2048)
+		n, err := conn.Read(buffer)
+		if err != nil {
+			fmt.Println("Erreur de lecture:", err)
+			return
+		}
+
+		message := string(buffer[:n])
+		fmt.Println("Message from server: " + message)
 	}
 }
