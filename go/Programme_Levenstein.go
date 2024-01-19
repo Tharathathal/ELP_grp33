@@ -17,7 +17,7 @@ func lev_dist(mot_client, mot string, rep_global chan string) {
 	rep_global <- rep
 }
 
-func handleClient(conn net.Conn) {
+func handleClient(conn net.Conn, prénoms []string) {
 	defer conn.Close()
 	fmt.Println("Connexion établie.")
 
@@ -30,29 +30,6 @@ func handleClient(conn net.Conn) {
 	}
 
 	//Traitement des données du client et retour des informations
-	var prénoms = []string{
-		"Alexandre", "Thomas", "Antoine", "Nicolas", "Pierre",
-		"Paul", "François", "Louis", "Charles", "Jean",
-		"Jacques", "Guillaume", "Lucas", "Mathieu", "Gabriel",
-		"Raphaël", "Vincent", "Maxime", "Hugo", "Arthur",
-		"Félix", "Étienne", "Nathan", "Samuel", "Olivier",
-		"Léo", "Théo", "Matthias", "Benjamin", "Adrien",
-		"Édouard", "Tristan", "Xavier", "Simon", "Damien",
-		"Axel", "Cédric", "Baptiste", "Alexis", "Rémi",
-		"Sébastien", "Maurice", "Pascal", "René", "André",
-		"Georges", "Albert", "Roger", "Maurice", "Claude",
-		"Marie", "Emma", "Léa", "Chloé", "Manon",
-		"Camille", "Sarah", "Zoé", "Anaïs", "Julie",
-		"Laura", "Clara", "Alice", "Eva", "Inès",
-		"Charlotte", "Lola", "Louna", "Mathilde", "Louise",
-		"Éléonore", "Lucie", "Margaux", "Romane", "Jade",
-		"Ambre", "Léna", "Maëlle", "Céline", "Sophie",
-		"Isabelle", "Nathalie", "Emilie", "Christine", "Valérie",
-		"Catherine", "Danielle", "Nicole", "Monique", "Isabella",
-		"Anna", "Maria", "Giovanna", "Rosa", "Angela",
-		"Francesca", "Elena", "Luisa", "Gina", "Rita",
-		"Léonie",
-	}
 
 	mot_client := string(buffer[:n])
 	réponse := "La distance de Levenshtein entre votre prénom et :\n"
@@ -67,8 +44,6 @@ func handleClient(conn net.Conn) {
 		time.Sleep(10 * time.Millisecond)
 	}
 
-	//Incrémente la liste des prénoms
-	prénoms = append(prénoms, mot_client)
 	conn.Write([]byte(réponse))
 }
 
@@ -91,7 +66,32 @@ func main() {
 			continue
 		}
 
+		var prénoms = []string{
+			"Alexandre", "Thomas", "Antoine", "Nicolas", "Pierre",
+			"Paul", "François", "Louis", "Charles", "Jean",
+			"Jacques", "Guillaume", "Lucas", "Mathieu", "Gabriel",
+			"Raphaël", "Vincent", "Maxime", "Hugo", "Arthur",
+			"Félix", "Étienne", "Nathan", "Samuel", "Olivier",
+			"Léo", "Théo", "Matthias", "Benjamin", "Adrien",
+			"Édouard", "Tristan", "Xavier", "Simon", "Damien",
+			"Axel", "Cédric", "Baptiste", "Alexis", "Rémi",
+			"Sébastien", "Maurice", "Pascal", "René", "André",
+			"Georges", "Albert", "Roger", "Maurice", "Claude",
+			"Marie", "Emma", "Léa", "Chloé", "Manon",
+			"Camille", "Sarah", "Zoé", "Anaïs", "Julie",
+			"Laura", "Clara", "Alice", "Eva", "Inès",
+			"Charlotte", "Lola", "Louna", "Mathilde", "Louise",
+			"Éléonore", "Lucie", "Margaux", "Romane", "Jade",
+			"Ambre", "Léna", "Maëlle", "Céline", "Sophie",
+			"Isabelle", "Nathalie", "Emilie", "Christine", "Valérie",
+			"Catherine", "Danielle", "Nicole", "Monique", "Isabella",
+			"Anna", "Maria", "Giovanna", "Rosa", "Angela",
+			"Francesca", "Elena", "Luisa", "Gina", "Rita",
+			"Léonie",
+		}
+
 		//Chaque client géré dans une goroutine
-		go handleClient(conn)
+		go handleClient(conn, prénoms)
+
 	}
 }
