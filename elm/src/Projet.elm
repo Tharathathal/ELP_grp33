@@ -1,6 +1,6 @@
 -- https://api.dictionaryapi.dev/api/v2/entries/en/<word> 
 
-module Main exposing (..)
+module Projet exposing (..)
 
 import Browser
 import Html exposing (Html, button, div, text)
