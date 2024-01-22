@@ -1,12 +1,32 @@
 module LireJSON exposing (..)
 
 import Browser
+import Http
 import Html exposing (Html, div, text)
-import Json.Decode exposing (Decoder, field, string, list, object2, object4, object5, maybe, oneOf, (:=))
 import Result exposing (Result)
+import Json.Decode exposing (..)
 
+-- Main --
+main =
+  Browser.element
+    { init = init
+    , update = update
+    , subscriptions = subscriptions
+    , view = view
+    }
 
--- Définition des types de données
+-- SUBSCRIPTIONS --
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+  Sub.none
+
+--- MODEL --- 
+type Model
+    = Loading
+    | Loaded Word
+    | Failed
+
 type alias Phonetic =
     { text : String
     , audio : Maybe String
@@ -32,80 +52,77 @@ type alias Word =
     , meanings : List Meaning
     }
 
+init : () -> (Model, Cmd Msg)
+init _ =
+    (Loading, fetchWord)
 
--- Décodeurs
-phoneticDecoder : Decoder Phonetic
-phoneticDecoder =
-    object2 Phonetic
-        ("text" := string)
-        ("audio" := maybe string)
+decodePhonetic : Decoder Phonetic
+decodePhonetic =
+    map2 Phonetic
+        (field "text" string)
+        (field "audio" (nullable string))
 
-definitionDecoder : Decoder Definition
-definitionDecoder =
-    object4 Definition
-        ("definition" := string)
-        ("example" := string)
-        ("synonyms" := list string)
-        ("antonyms" := list string)
+decodeDefinition : Decoder Definition
+decodeDefinition =
+    map4 Definition
+        (field "definition" string)
+        (field "example" string)
+        (field "synonyms" (list string))
+        (field "antonyms" (list string))
 
-meaningDecoder : Decoder Meaning
-meaningDecoder =
-    object2 Meaning
-        ("partOfSpeech" := string)
-        ("definitions" := list definitionDecoder)
+decodeMeaning : Decoder Meaning
+decodeMeaning =
+    map2 Meaning
+        (field "partOfSpeech" string)
+        (field "definitions" (list decodeDefinition))
 
-wordDecoder : Decoder Word
-wordDecoder =
-    object5 Word
-        ("word" := string)
-        ("phonetic" := string)
-        ("phonetics" := list phoneticDecoder)
-        ("origin" := string)
-        ("meanings" := list meaningDecoder)
+decodeWord : Decoder Word
+decodeWord =
+    map5 Word
+        (field "word" string)
+        (field "phonetic" string)
+        (field "phonetics" (list decodePhonetic))
+        (field "origin" string)
+        (field "meanings" (list decodeMeaning))
 
-
--- Messages
 type Msg
-    = DataReceived (Result String Word)
+    = FetchWord
+    | ReceiveWord (Result Http.Error Word)
 
+--- LIEN QUI RECUPERE LE JSON ---
+fetchWord : Cmd Msg
+fetchWord = 
+    Http.get
+        { url = "https://api.dictionaryapi.dev/api/v2/entries/en/hello"
+        , expect = Http.expectJson ReceiveWord decodeWord
+        }
 
--- Vue
-view : Word -> Html Msg
-view model =
-    div []
-        [ text ("Mot: " ++ model.word)
-        , text ("Phonétique: " ++ model.phonetic)
-        , text ("Origine: " ++ model.origin)
-        -- Ajoutez ici le rendu des autres données selon vos besoins
-        ]
-
-
--- Mise à jour
-update : Msg -> Word -> (Word, Cmd Msg)
+update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of
-        DataReceived (Ok wordData) ->
-            (wordData, Cmd.none)
-
-        DataReceived (Err errorMessage) ->
-            -- Gérer les erreurs, par exemple, afficher un message d'erreur
-            (model, Cmd.none)
-
-
--- Élément Elm
-wordElement : Browser.Element Msg
-wordElement =
-    { init = \_ -> (init, Cmd.none)
-    , update = update
-    , subscriptions = \_ -> Sub.none
-    , view = view
-    }
+        FetchWord ->
+            (Loading,fetchWord)
+        ReceiveWord result ->
+          case result of 
+            Ok word ->
+                (Loaded word,Cmd.none)
+            Err _ ->
+                (Failed, Cmd.none)
 
 
--- Ports
-port module exposing (DataReceived)
+view : Model -> Html Msg
+view model =
+  case model of
+    Loading ->
+      div [] [ text "Chargement..." ]
+    Loaded word ->
+      -- Utilisez les données word pour afficher ce que vous voulez
+      div [] [ text "Données chargées:", text (word.word) ]
+    Failed ->
+      div [] [ text "Échec du chargement des données" ]
 
-port loadWordData : String -> Cmd Msg
+
+
 
 
 

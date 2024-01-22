@@ -30,7 +30,7 @@ type Model = Failure | Loading | Success String
 init : () -> (Model, Cmd Msg)
 init _ =
   (Loading, Http.get
-      {url = "https://api.dictionaryapi.dev/api/v2/entries/en/hello"
+      {url = "https://elm-lang.org/api/random-quotes"
       , expect = Http.expectString GotDef})
 
 
