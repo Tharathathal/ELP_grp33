@@ -5,7 +5,8 @@ module Projet exposing (..)
 import Browser
 import Html exposing (Html, button, div, text)
 import Html.Events exposing (onClick)
-import Http
+import Http 
+import Random
 
 
 
@@ -22,7 +23,7 @@ type alias Model = String
 
 init : () -> (Model, Cmd msg)
 init _ =
-  ("init", _)
+  (Loading, Http.get {url = "../static/mots.txt"})
 
 
 -- SUBSCRIPTIONS
@@ -38,7 +39,7 @@ update : Msg -> Model -> (Model, Cmd msg)
 update msg model =
   case msg of
     NewWord ->
-      ("mot", _)
+      (Loading, Http.get {url = "../static/mots.txt"})
 
 
 
