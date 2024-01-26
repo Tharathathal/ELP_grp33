@@ -1,7 +1,8 @@
 module RandomWord exposing(..)
 
 import Browser
-import Html exposing (Html, div, button, text)
+import Html exposing (..)
+import Html.Events exposing (onClick)
 import List exposing (head, tail)
 import Random exposing (..)
 
