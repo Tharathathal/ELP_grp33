@@ -1,7 +1,7 @@
 module LireJSON exposing (..)
 
 import Browser
-import Html exposing (Html, div, text)
+import Html exposing (Html, div, text, li)
 import Http
 import Json.Decode exposing (Decoder, field, list, map, map2, map3, map4, nullable, string)
 import Result exposing (Result)
@@ -94,7 +94,7 @@ view model =
 
         Success newData ->
             div []
-                [ div [] [ text "Words: ", viewWords newData ]
+                [ div [] [ viewWords newData ]
                 ]
 
 viewWords : List Word -> Html Msg
@@ -105,9 +105,7 @@ viewWords words =
         
         (word :: _) ->
             div []
-                [ div [] [ text ("Word: " ++ word.word) ]
-                , div [] [ text "Phonetics: ", viewPhonetics word.phonetics ]
-                , div [] [ text "Meanings: ", viewMeanings word.meanings ]
+                [viewMeanings word.meanings
                 ]
 
 viewPhonetics : List Phonetic -> Html Msg
@@ -129,8 +127,7 @@ viewMeanings meanings =
         (List.map
             (\m ->
                 div []
-                    [ text ("Part of Speech: " ++ m.partOfSpeech)
-                    , div [] [ text "Definitions: ", viewDefinitions m.definitions ]
+                    [  viewDefinitions m.definitions 
                     ]
             )
             meanings
@@ -142,9 +139,7 @@ viewDefinitions definitions =
         (List.map
             (\d ->
                 div []
-                    [ text ("Definition: " ++  d.definitions)
-                    , div [] [ text ("Synonyms: " ++ String.join ", " d.synonyms) ]
-                    , div [] [ text ("Antonyms: " ++ String.join ", " d.antonyms) ]
+                    [ li [] [text ("Definition: " ++  d.definitions)]
                     ]
             )
             definitions
