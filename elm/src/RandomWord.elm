@@ -1,70 +1,26 @@
-module RandomWord exposing(..)
+module RandomWord exposing (tirerMotAuHasard, randomGeneratorToString)
 
-import Browser
-import Html exposing (..)
-import Html.Events exposing (onClick)
-import List exposing (head, tail)
-import Random exposing (..)
+import Random
+import List.Extra exposing (getAt)
 
+tirerMotAuHasard : List String -> Random.Generator (Maybe String)
+tirerMotAuHasard listeMots =
+    let
+        indexMax = List.length listeMots
+        generateurIndex = Random.int 0 (indexMax - 1)
+    in
+    if indexMax == 0 then
+        Random.constant Nothing
+    else
+        Random.map (\index -> getAt index listeMots) generateurIndex
 
--- Type de modèle
-type alias Model =
-    { words : List String
-    , selectedWord : Maybe String
-    , randomGenerator : Generator (Maybe String)
-    }
+randomGeneratorToString : Random.Generator (Maybe String) -> String
+randomGeneratorToString generator =
+    case Random.generate (\_ -> generator) (Random.initialSeed 0) of
+        (result, _) ->
+            case result of
+                Just str ->
+                    str
 
-
--- Messages
-type Msg
-    = RandomWordGenerated (Maybe String)
-    | GenerateRandomWord
-
-
--- Fonction principale qui charge le fichier JSON et décode les données
-main =
-    Browser.sandbox { init = init, update = update, view = view }
-
-
--- Modèle initial
-init : Model
-init =
-    { words = ["apple", "banana", "cherry", "date", "elderberry"]
-    , selectedWord = Nothing
-    , randomGenerator = Random.initialSeed 42 |> Random.generate generateRandomWord
-    }
-
-
--- Mise à jour du modèle
-update : Msg -> Model -> Model
-update msg model =
-    case msg of
-        RandomWordGenerated maybeWord ->
-            { model | selectedWord = maybeWord }
-
-        GenerateRandomWord ->
-            let
-                (newWord, newGenerator) =
-                    Random.step generateRandomWord model.randomGenerator
-            in
-            { model | selectedWord = newWord, randomGenerator = newGenerator }
-
-
--- Vue
-view : Model -> Html Msg
-view model =
-    div []
-        [ button [ onClick GenerateRandomWord ] [ text "Générer un mot au hasard" ]
-        , case model.selectedWord of
-            Just word ->
-                text ("Mot sélectionné : " ++ word)
-
-            Nothing ->
-                text "Aucun mot sélectionné"
-        ]
-
-
--- Générateur pour choisir un mot au hasard dans la liste
-generateRandomWord : Step (Maybe String)
-generateRandomWord =
-    List.isEmpty >> Random.step (Maybe.withDefault "" << head << tail)
+                Nothing ->
+                    "Pas de valeur"

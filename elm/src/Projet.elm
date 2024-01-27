@@ -5,7 +5,7 @@ import Html exposing (Html, div, button, text, pre)
 import Html.Events exposing (onClick)
 import Http
 import Random
-
+import LireJSON exposing (view)
 
 
 -- MAIN

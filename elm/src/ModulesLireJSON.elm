@@ -1,12 +1,15 @@
-module LireJSON exposing (..)
+module ModulesLireJSON exposing (..)
 
-import Browser
+
 import Html exposing (Html, div, text, li)
 import Http
-import Json.Decode exposing (Decoder, field, list, map, map2, map3, map4, nullable, string)
+import Json.Decode exposing (Decoder, field, list, map, map2, map3, nullable, string)
 import Result exposing (Result)
 
-
+type Msg
+    = Data (Result Http.Error (List Word))
+    | DataReceived (Result Http.Error String)
+    | Guess String
 -- MODEL
 type alias Word =
     { word : String
@@ -34,37 +37,12 @@ type alias Meaning =
     , definitions : List Definition
     }
 
-type Model
-    = Failure Http.Error
-    | Loading
-    | Success (List Word)
-
--- MESSAGES
-type Msg
-    = DataReceived (Result Http.Error (List Word))
-
--- INIT
-init : () -> (Model, Cmd Msg)
-init _ =
-    (Loading, getDefinition("hello"))
-
 getDefinition : String ->  Cmd Msg
 getDefinition word =
     Http.get
         { url = "https://api.dictionaryapi.dev/api/v2/entries/en/" ++ word
-        , expect = Http.expectJson DataReceived decoder
+        , expect = Http.expectJson Data decoder
         }
-
--- UPDATE
-update : Msg -> Model -> (Model, Cmd Msg)
-update msg model =
-    case msg of
-        DataReceived result ->
-            case result of
-                Ok newData ->
-                    (Success newData, Cmd.none)
-                Err err ->
-                    (Failure err, Cmd.none)
 
 errorToString : Http.Error -> String
 errorToString error =
@@ -85,20 +63,6 @@ errorToString error =
             errorMessage
 
 -- VIEW
-viewJSON : Model -> Html Msg
-viewJSON model =
-    case model of
-        Failure error ->
-            text ("Error: " ++ errorToString error)
-
-        Loading ->
-            text "Loading..."
-
-        Success newData ->
-            div []
-                [ div [] [ viewWords newData ]
-                ]
-
 viewWords : List Word -> Html Msg
 viewWords words =
     case words of
@@ -184,13 +148,3 @@ decoderMeaning =
     map2 Meaning
         (field "partOfSpeech" string)
         (field "definitions" (list decoderDefinition))
-
--- MAIN
-main : Program () Model Msg
-main =
-    Browser.element
-        { init = init
-        , update = update
-        , view = viewJSON
-        , subscriptions = \_ -> Sub.none
-        }

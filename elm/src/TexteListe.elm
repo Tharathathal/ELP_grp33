@@ -38,8 +38,8 @@ update msg model =
             ( model, Random.generate MotGenere generateur )
         DataReceived (Err _) ->
             ( model, Cmd.none )
-getNicknames : Cmd Msg
-getNicknames =
+getWords : Cmd Msg
+getWords =
     Http.get
         { url = "http://localhost:5018/mots.txt"
         , expect = Http.expectString DataReceived
@@ -47,7 +47,7 @@ getNicknames =
 
 init : () -> (Model, Cmd Msg)
 init _ =
-    ( { motGenere = Nothing }, getNicknames )
+    ( { motGenere = Nothing }, getWords )
 
 view : Model -> Html Msg
 view model =
