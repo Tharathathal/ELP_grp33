@@ -84,33 +84,9 @@ function tour(joueur, main, plateau, action){
             }
             else{
                 if (verifLettres(inputMot, main) == true){
-                    console.log(verifMot(inputMot, (error, result) => {
-
-
-//verifMot(inputMot, (error, result) => {
-
-
-//verifMot(inputMot)
-//.then((result) =>{})
-//.catch((error) =>{});
-
-//result = await verifMot(inputMot);
-
-
-                        if (error) {
-                            console.error(error);
-                        } else {
-                            console.log(result);
-                            for (i=0 ; i<plateau.length ; i++){
-                                if (plateau[i][0] == "   "){
-                                    for (j=0 ; j<inputMot.length ; j++){
-                                        console.log(inputMot[j]);
-                                        plateau[i][j] = inputMot[j];
-                                    }
-                                    i = plateau.length
-                                }
-                            }}
-                        }));
+                    verifMot(inputMot)
+                        .then((result) =>{console.log(result)})
+                        .catch((error) =>{console.log(error)});
                 }else{
                     console.log(verifLettres(inputMot, main));
                 }
@@ -126,20 +102,41 @@ function tour(joueur, main, plateau, action){
     return main, plateau
 }
 
-function verifMot(mot, callback){
-    if (mot.length<3){
-        return "Erreur : mot trop court."
-    }
-    const dico = 'dico.txt';
-    fs.readFile(dico, 'utf8', (err, data) => {
-        if (err) {return console.error(err);}     
-        if (data.includes(mot)) {
-            callback(null, "Mot Valide.");    
-        } else {    
-            callback("Erreur : mot non trouvé dans le dictionnaire.", null);    
+/* for (i=0 ; i<plateau.length ; i++){
+    if (plateau[i][0] == "   "){
+        for (j=0 ; j<inputMot.length ; j++){
+            console.log(inputMot[j]);
+            plateau[i][j] = inputMot[j];
         }
+        i = plateau.length
+    }
+} */
+
+
+//verifMot(inputMot, (error, result) => {
+
+//verifMot(inputMot)
+//.then((result) =>{})
+//.catch((error) =>{});
+
+//result = await verifMot(inputMot);
+
+
+function verifMot(mot){
+    return new Promise((resolve, reject) => {
+        if (mot.length<3){
+            reject("Erreur : mot trop court.");
+        }
+        const dico = './JS/dico.txt';
+        fs.readFile(dico, 'utf8', (err, data) => {
+            if (err) {return console.error(err);}     
+            if (data.includes(mot)) {
+                resolve("Mot Valide.");    
+            } else {    
+                reject("Erreur : mot non trouvé dans le dictionnaire.");    
+            }
+        });
     })
-    ;
 }
 
 function verifLettres(mot, main){
