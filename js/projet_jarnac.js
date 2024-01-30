@@ -85,6 +85,18 @@ function tour(joueur, main, plateau, action){
             else{
                 if (verifLettres(inputMot, main) == true){
                     console.log(verifMot(inputMot, (error, result) => {
+
+
+//verifMot(inputMot, (error, result) => {
+
+
+//verifMot(inputMot)
+//.then((result) =>{})
+//.catch((error) =>{});
+
+//result = await verifMot(inputMot);
+
+
                         if (error) {
                             console.error(error);
                         } else {
