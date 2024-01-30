@@ -1,6 +1,7 @@
 # Projet Golang -- Distance de Levenshtein
 
 ## Lancement du programme
+Tout d'abord, il faut installer le package permettant de calculer la distance de Levenshtein : `go get github.com/arbovm/levenshtein`.
 Pour lancer le serveur, il faut exécuter dans un terminal la commande suivante : `go run .\Programme_Levenshtein.go`.
 Un ou plusieurs utilisateur.s peuvent ensuite se connecter avec : `go run .\Client.go`.
 
