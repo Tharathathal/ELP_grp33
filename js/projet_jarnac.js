@@ -1,7 +1,17 @@
 /* https://github.com/sfrenot/javascript/blob/master/projet2/Readme.md */
 
+//verifMot(inputMot, (error, result) => {
+
+//verifMot(inputMot)
+//.then((result) =>{})
+//.catch((error) =>{});
+
+//result = await verifMot(inputMot);
+    
+
+
 var fs = require("fs");
-const file = "partie_jarnac.txt";
+const file = "./JS/partie_jarnac.txt";
 
 const handleError = (err) => {
     if (err) {  
@@ -47,11 +57,11 @@ const lettersAndCounts = [
     { letter: 'z', count: 2 }
    ];
    
-const sac = lettersAndCounts.flatMap(({ letter, count }) => Array.from({ length: count }, () => letter));
-const plateauJ1 = Array.from({ length: 8 }, () => Array(9).fill("   "));
-const plateauJ2 = Array.from({ length: 8 }, () => Array(9).fill("   "));
-const mainJ1 = Array(6).fill(null);
-const mainJ2 = Array(6).fill(null);
+var sac = lettersAndCounts.flatMap(({ letter, count }) => Array.from({ length: count }, () => letter));
+var plateauJ1 = Array.from({ length: 8 }, () => Array(9).fill("   "));
+var plateauJ2 = Array.from({ length: 8 }, () => Array(9).fill("   "));
+var mainJ1 = Array(6).fill(null);
+var mainJ2 = Array(6).fill(null);
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -85,7 +95,13 @@ function tour(joueur, main, plateau, action){
             else{
                 if (verifLettres(inputMot, main) == true){
                     verifMot(inputMot)
-                        .then((result) =>{console.log(result)})
+                        .then((result) =>{
+                            console.log(result);
+                            plateau = ajoutPlateau(inputMot, plateau);
+                            main = enleveMain(inputMot,main);
+                            const data = "Lettres piochées par le joueur 1 : "+ main.join(" ; ") +"\nPlateau J1 :\n"+ plateau.join("\n")+"\n";
+                            fs.writeFile(file, data, handleError);
+                        })
                         .catch((error) =>{console.log(error)});
                 }else{
                     console.log(verifLettres(inputMot, main));
@@ -94,33 +110,37 @@ function tour(joueur, main, plateau, action){
             }
         }           
     }
-    const data = "Lettres piochées par le joueur 1 : "+ main.join(" ; ") +"\nPlateau J1 :\n"+ plateau.join("\n")+"\n";
-    fs.writeFile(file, data, handleError);
+    /* const data = "Lettres piochées par le joueur 1 : "+ main.join(" ; ") +"\nPlateau J1 :\n"+ plateau.join("\n")+"\n";
+    fs.writeFile(file, data, handleError); */
     /* const data = "Lettres piochées par le joueur 1 : "+ mainJ1.join(" ; ") +"\nPlateau J1 :\n"+ plateauJ1.join("\n") +"\nLettres piochées par le joueur 2 : "+ mainJ2.join(" ; ") +"\nPlateau J2:\n"+ plateauJ2.join("\n") +"\n";
     fs.writeFile(file, data, handleError); */ 
 
     return main, plateau
 }
 
-/* for (i=0 ; i<plateau.length ; i++){
-    if (plateau[i][0] == "   "){
-        for (j=0 ; j<inputMot.length ; j++){
-            console.log(inputMot[j]);
-            plateau[i][j] = inputMot[j];
+function ajoutPlateau(mot,plateau){
+    for (i=0 ; i<plateau.length ; i++){
+        if (plateau[i][0] == "   "){
+            for (j=0 ; j<mot.length ; j++){
+                plateau[i][j] = " "+mot[j]+" ";
+            }
+            i = plateau.length
         }
-        i = plateau.length
     }
-} */
+    return plateau
+}
 
-
-//verifMot(inputMot, (error, result) => {
-
-//verifMot(inputMot)
-//.then((result) =>{})
-//.catch((error) =>{});
-
-//result = await verifMot(inputMot);
-
+function enleveMain(mot, main){
+    for (lettre of mot){
+        for (index in main){
+            if (main[index]==lettre){
+                main[index] = null;
+                break;
+            }
+        }
+    }
+    return main
+}
 
 function verifMot(mot){
     return new Promise((resolve, reject) => {
@@ -147,10 +167,12 @@ function verifLettres(mot, main){
         };
     };
     return true;
-}
+    }
 
 
-const mainTest = ["m","o","t",,,];
-tour(1, mainTest, plateauJ1, "joue");
+var mainTest = ["m","o","t",,,];
+mainTest, plateauJ1 = tour(1, mainTest, plateauJ1, "joue");
+/* const data = "Lettres piochées par le joueur 1 : "+ mainTest.join(" ; ") +"\nPlateau J1 :\n"+ plateauJ1.join("\n")+"\n";
+fs.writeFile(file, data, handleError); */
 
 /* fs.appendFile(file,mainJ2.join(" ; "),handleError); */
