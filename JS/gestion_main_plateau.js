@@ -19,6 +19,7 @@ export function add_main(mot, main){
     return main;
 }
 
+
 export function ajoutPlateau(mot,plateau){
     for (var i=0 ; i<plateau.length ; i++){
         if (plateau[i][0] == "   "){
@@ -32,6 +33,13 @@ export function ajoutPlateau(mot,plateau){
 }
 
 export function retourMain(plateau,ligne,main){
+    for (var i=0 ; i<plateau[ligne].length ; i++){
+        if (plateau[ligne][i] != "   "){
+            main.push(plateau[ligne][i].trim());
+        }
+    }
+    return plateau ; main
+
     
 }
 
