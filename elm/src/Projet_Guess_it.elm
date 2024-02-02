@@ -1,4 +1,4 @@
-module Projet2 exposing (..)
+module Projet_Guess_it exposing (..)
 
 import Html exposing (..)
 import Html.Events exposing (..)
