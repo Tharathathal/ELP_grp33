@@ -31,6 +31,10 @@ export function ajoutPlateau(mot,plateau){
     return plateau
 }
 
+export function retourMain(plateau,ligne,main){
+    
+}
+
 export function enleveMain(mot, main){
     for (var lettre of mot){
         for (var index in main){

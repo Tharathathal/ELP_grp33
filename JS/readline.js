@@ -13,7 +13,7 @@ export async function getMot() {
 export async function getAction() {
   const rl = readline.createInterface({ input, output });
 
-  const answer = await rl.question("Quel action voulez vous effectuer ? [1: jouer, 2: je passe, 3: jarnac]  ");
+  const answer = await rl.question("Quel action voulez vous effectuer ? [1: nouveau mot, 2 : ajouter lettres, 3: je passe, 4: jarnac]  ");
 
   rl.close();
   return answer;

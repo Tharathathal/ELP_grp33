@@ -70,7 +70,7 @@ var mainJ2 = Array(6).fill(null);
 /* const data = "Lettres piochées par le joueur 1 : " + mainJ1.join(" ; ") + "\nPlateau :\n" + plateauJ1.join("\n");
 fs.writeFile(file, data, handleError); */
 
-async function tour(joueur, main, plateau){
+async function nvMot(joueur, main, plateau){
     const inputMot = await rl.getMot();
     
     if (verif.verifLettres(inputMot, main) == true){
@@ -100,10 +100,14 @@ while (continueTour){
     fs.writeFile(file, data, handleError);
 
     var action = await rl.getAction();
-    if (action == "2"){
+    if (action == "3"){
         break;
-    }else{
-        mainTest, plateauJ1 = await tour(1, mainTest, plateauJ1, action);
+    }
+    if (action == "1"){
+        mainTest, plateauJ1 = await nvMot(1, mainTest, plateauJ1);
+    }
+    if (action == "2"){
+        mainTest, plateauJ1 = await ajoutMot(1, mainTest, plateauJ1);
     }
 }
 /* const data = "Lettres piochées par le joueur 1 : "+ mainTest.join(" ; ") +"\nPlateau J1 :\n"+ plateauJ1.join("\n")+"\n";
