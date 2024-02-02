@@ -79,6 +79,8 @@ async function tour(joueur, main, plateau){
                 console.log(result);
                 plateau = gestion.ajoutPlateau(inputMot, plateau);
                 main = gestion.enleveMain(inputMot,main);
+                const data = "Lettres piochées par le joueur 1 : "+ main.join(" ; ") +"\nPlateau J1 :\n"+ plateau.join("\n")+"\n";
+                fs.writeFile(file, data, handleError);
             })
             .catch((error) =>{console.log(error)});
     }else{
