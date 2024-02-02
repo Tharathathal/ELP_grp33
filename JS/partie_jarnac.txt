@@ -1,4 +1,4 @@
-Lettres piochées par le joueur 1 :  ;  ;  ; b ; r ; c
+Lettres piochées par le joueur 1 :  ;  ;  ; f ; i ; e
 Plateau J1 :
  m , o , t ,   ,   ,   ,   ,   ,   
    ,   ,   ,   ,   ,   ,   ,   ,   

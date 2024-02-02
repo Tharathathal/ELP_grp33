@@ -70,38 +70,26 @@ var mainJ2 = Array(6).fill(null);
 /* const data = "Lettres piochées par le joueur 1 : " + mainJ1.join(" ; ") + "\nPlateau :\n" + plateauJ1.join("\n");
 fs.writeFile(file, data, handleError); */
 
-async function tour(joueur, main, plateau, action){
-    var continueTour = true;
-    if (action == "jarnac"){
+async function tour(joueur, main, plateau){
+    const data = "Lettres piochées par le joueur 1 : "+ main.join(" ; ") +"\nPlateau J1 :\n"+ plateau.join("\n")+"\n";
+    fs.writeFile(file, data, handleError);
 
-    }
-    else{
-        gestion.pioche_début(sac,main);
-        const data = "Lettres piochées par le joueur 1 : "+ main.join(" ; ") +"\nPlateau J1 :\n"+ plateau.join("\n")+"\n";
-        fs.writeFile(file, data, handleError);
-        while (continueTour){
-            const inputMot = await rl.getMot();
-            if (inputMot == "je passe"){
-                break;
-            }
-            else{
-                if (verif.verifLettres(inputMot, main) == true){
-                    verif.verifMot(inputMot)
-                        .then((result) =>{
-                            console.log(result);
-                            plateau = gestion.ajoutPlateau(inputMot, plateau);
-                            main = gestion.enleveMain(inputMot,main);
-                            const data = "Lettres piochées par le joueur 1 : "+ main.join(" ; ") +"\nPlateau J1 :\n"+ plateau.join("\n")+"\n";
-                            fs.writeFile(file, data, handleError);
-                        })
-                        .catch((error) =>{console.log(error)});
-                }else{
-                    console.log(verif.verifLettres(inputMot, main));
-                }
-                continueTour = false;
-            }
-        }           
-    }
+    const inputMot = await rl.getMot();
+    
+    if (verif.verifLettres(inputMot, main) == true){
+        verif.verifMot(inputMot)
+            .then((result) =>{
+                console.log(result);
+                plateau = gestion.ajoutPlateau(inputMot, plateau);
+                main = gestion.enleveMain(inputMot,main);
+                const data = "Lettres piochées par le joueur 1 : "+ main.join(" ; ") +"\nPlateau J1 :\n"+ plateau.join("\n")+"\n";
+                fs.writeFile(file, data, handleError);
+            })
+            .catch((error) =>{console.log(error)});
+    }else{
+        console.log(verif.verifLettres(inputMot, main));
+    }     
+    
     /* const data = "Lettres piochées par le joueur 1 : "+ main.join(" ; ") +"\nPlateau J1 :\n"+ plateau.join("\n")+"\n";
     fs.writeFile(file, data, handleError); */
     /* const data = "Lettres piochées par le joueur 1 : "+ mainJ1.join(" ; ") +"\nPlateau J1 :\n"+ plateauJ1.join("\n") +"\nLettres piochées par le joueur 2 : "+ mainJ2.join(" ; ") +"\nPlateau J2:\n"+ plateauJ2.join("\n") +"\n";
@@ -110,9 +98,19 @@ async function tour(joueur, main, plateau, action){
     return main, plateau
 }
 
-var action = await rl.getAction();
-var mainTest = ["m","o","t",,,];
-mainTest, plateauJ1 = tour(1, mainTest, plateauJ1, action);
+var mainTest = ["m","o","t",,,];    
+gestion.pioche_début(sac,mainTest);
+var continueTour = true;
+
+
+while (continueTour){
+    var action = await rl.getAction();
+    if (action == "2"){
+        break;
+    }else{
+        mainTest, plateauJ1 = await tour(1, mainTest, plateauJ1, action);
+    }
+}
 /* const data = "Lettres piochées par le joueur 1 : "+ mainTest.join(" ; ") +"\nPlateau J1 :\n"+ plateauJ1.join("\n")+"\n";
 fs.writeFile(file, data, handleError); */
 

@@ -4,7 +4,7 @@ import { stdin as input, stdout as output } from 'node:process';
 export async function getMot() {
   const rl = readline.createInterface({ input, output });
 
-  const answer = await rl.question("Quel mot voulez-vous jouer ? [pour arrêter le tour, entrer : je passe]  ");
+  const answer = await rl.question("Quel mot voulez-vous jouer ?  ");
 
   rl.close();
   return answer;
@@ -13,7 +13,7 @@ export async function getMot() {
 export async function getAction() {
   const rl = readline.createInterface({ input, output });
 
-  const answer = await rl.question("Quel action voulez vous effectuer ? [jarnac/jouer]  ");
+  const answer = await rl.question("Quel action voulez vous effectuer ? [1: jouer, 2: je passe, 3: jarnac]  ");
 
   rl.close();
   return answer;
