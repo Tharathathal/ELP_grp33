@@ -7,11 +7,15 @@
 //.catch((error) =>{});
 
 //result = await verifMot(inputMot);
-    
-import ""
 
-var fs = require("fs");
-const file = "./JS/partie_jarnac.txt";
+import fs from 'fs';
+
+import * as gestion from '../JS/gestion_main_plateau.js';
+import * as verif from '../JS/fonctions_verif.js';
+import * as rl from '../JS/readline.js';
+//const gestion = require('./gestion_main_plateau.mjs');
+//var fs = require("fs");
+const file = "./partie_jarnac.txt";
 
 const handleError = (err) => {
     if (err) {  
@@ -66,31 +70,31 @@ var mainJ2 = Array(6).fill(null);
 /* const data = "Lettres piochées par le joueur 1 : " + mainJ1.join(" ; ") + "\nPlateau :\n" + plateauJ1.join("\n");
 fs.writeFile(file, data, handleError); */
 
-function tour(joueur, main, plateau, action){
+async function tour(joueur, main, plateau, action){
     var continueTour = true;
     if (action == "jarnac"){
 
     }
     else{
-        pioche(main);
+        gestion.pioche_début(sac,main);
         while (continueTour){
-            const inputMot = "mot";
+            const inputMot = await rl.getMot();
             if (inputMot == "je passe"){
                 break;
             }
             else{
-                if (verifLettres(inputMot, main) == true){
-                    verifMot(inputMot)
+                if (verif.verifLettres(inputMot, main) == true){
+                    verif.verifMot(inputMot)
                         .then((result) =>{
                             console.log(result);
-                            plateau = ajoutPlateau(inputMot, plateau);
-                            main = enleveMain(inputMot,main);
+                            plateau = gestion.ajoutPlateau(inputMot, plateau);
+                            main = gestion.enleveMain(inputMot,main);
                             const data = "Lettres piochées par le joueur 1 : "+ main.join(" ; ") +"\nPlateau J1 :\n"+ plateau.join("\n")+"\n";
                             fs.writeFile(file, data, handleError);
                         })
                         .catch((error) =>{console.log(error)});
                 }else{
-                    console.log(verifLettres(inputMot, main));
+                    console.log(verif.verifLettres(inputMot, main));
                 }
                 continueTour = false;
             }
@@ -103,33 +107,6 @@ function tour(joueur, main, plateau, action){
 
     return main, plateau
 }
-
-function verifMot(mot){
-    return new Promise((resolve, reject) => {
-        if (mot.length<3){
-            reject("Erreur : mot trop court.");
-        }
-        const dico = './JS/dico.txt';
-        fs.readFile(dico, 'utf8', (err, data) => {
-            if (err) {return console.error(err);}     
-            if (data.includes(mot)) {
-                resolve("Mot Valide.");    
-            } else {    
-                reject("Erreur : mot non trouvé dans le dictionnaire.");    
-            }
-        });
-    })
-}
-
-function verifLettres(mot, main){
-    const lettres = mot.split("");
-    for (const lettre of lettres){
-        if (!main.includes(lettre)){
-            return "Erreur : "+ lettre +" n'est pas dans la main."
-        };
-    };
-    return true;
-    }
 
 
 var mainTest = ["m","o","t",,,];
