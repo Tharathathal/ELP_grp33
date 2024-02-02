@@ -13,7 +13,7 @@ export async function getMot() {
 export async function getLigne() {
   const rl = readline.createInterface({ input, output });
 
-  const answer = await rl.question("Quelle ligne voulez-vous changer ?  ");
+  const answer = await rl.question("Quelle ligne voulez-vous changer ? [entre 0 et 7]  ");
 
   rl.close();
   return answer;

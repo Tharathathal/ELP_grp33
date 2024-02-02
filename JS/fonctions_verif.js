@@ -18,8 +18,8 @@ export function verifMot(mot){
 }
 
 export function verifLettres(mot, main){
-    const lettres = mot.split("");
-    for (const lettre of lettres){
+    var lettres = mot.split("");
+    for (var lettre of lettres){
         if (!main.includes(lettre)){
             return "Erreur : "+ lettre +" n'est pas dans la main."
         };
