@@ -71,9 +71,6 @@ var mainJ2 = Array(6).fill(null);
 fs.writeFile(file, data, handleError); */
 
 async function tour(joueur, main, plateau){
-    const data = "Lettres piochées par le joueur 1 : "+ main.join(" ; ") +"\nPlateau J1 :\n"+ plateau.join("\n")+"\n";
-    fs.writeFile(file, data, handleError);
-
     const inputMot = await rl.getMot();
     
     if (verif.verifLettres(inputMot, main) == true){
@@ -103,7 +100,10 @@ gestion.pioche_début(sac,mainTest);
 var continueTour = true;
 
 
-while (continueTour){
+while (continueTour){    
+    const data = "Lettres piochées par le joueur 1 : "+ mainTest.join(" ; ") +"\nPlateau J1 :\n"+ plateauJ1.join("\n")+"\n";
+    fs.writeFile(file, data, handleError);
+
     var action = await rl.getAction();
     if (action == "2"){
         break;
