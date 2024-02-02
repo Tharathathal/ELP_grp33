@@ -10,6 +10,15 @@ export async function getMot() {
   return answer;
 }
 
+export async function getLigne() {
+  const rl = readline.createInterface({ input, output });
+
+  const answer = await rl.question("Quelle ligne voulez-vous changer ?  ");
+
+  rl.close();
+  return answer;
+}
+
 export async function getAction() {
   const rl = readline.createInterface({ input, output });
 

@@ -107,6 +107,8 @@ while (continueTour){
         mainTest, plateauJ1 = await nvMot(1, mainTest, plateauJ1);
     }
     if (action == "2"){
+        ligne = await rl.getLigne();
+        plateauJ1, mainTest = await retourMain(plateauJ1,ligne,mainTest);
         mainTest, plateauJ1 = await ajoutMot(1, mainTest, plateauJ1);
     }
 }
