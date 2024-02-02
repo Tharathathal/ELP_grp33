@@ -38,7 +38,7 @@ export function retourMain(plateau,ligne,main){
             main.push(plateau[ligne][i].trim());
         }
     }
-    return plateau main
+    return plateau ; main
 
     
 }
