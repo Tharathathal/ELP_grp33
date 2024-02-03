@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-export function verifMot(mot){
+export async function verifMot(mot){
     return new Promise((resolve, reject) => {
         if (mot.length<3){
             reject("Erreur : mot trop court.");
@@ -24,5 +24,14 @@ export function verifLettres(mot, main){
             return "Erreur : "+ lettre +" n'est pas dans la main."
         };
     };
+    return true;
+}
+
+export function verifFin(plateau){
+    for (var i=0 ; i<plateau.length ; i++){
+        if (plateau[i][0]=="   "){
+            return false;
+        }
+    }
     return true;
 }
