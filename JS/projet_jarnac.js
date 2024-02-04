@@ -198,7 +198,7 @@ async function Jarnac(joueur, otherMain, otherPlateau,volees,plateau){
                 console.log(error);
             });
     }else{
-        console.log(verif.verifLettres(inputMot, main));
+        console.log(verif.verifLettres(inputMot, volees));
     }     
     
     
