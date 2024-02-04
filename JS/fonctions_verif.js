@@ -3,15 +3,15 @@ import fs from 'fs';
 export async function verifMot(mot){
     return new Promise((resolve, reject) => {
         if (mot.length<3){
-            reject("Erreur : mot trop court.");
+            reject("\nErreur : mot trop court.");
         }
         const dico = './dico.txt';
         fs.readFile(dico, 'utf8', (err, data) => {
             if (err) {return console.error(err);}     
             if (data.includes(mot)) {
-                resolve("Mot Valide.");    
+                resolve("\nMot Valide.");    
             } else {    
-                reject("Erreur : mot non trouvé dans le dictionnaire.");    
+                reject("\nErreur : mot non trouvé dans le dictionnaire.");    
             }
         });
     })

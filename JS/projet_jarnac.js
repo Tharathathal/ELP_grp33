@@ -89,6 +89,9 @@ mainJ2 = await gestion.pioche_début(sac,mainJ2);
 var continueTour = true;
 var continuePartie = true;
 
+
+console.log("Début de la partie :\n")
+
 while (continuePartie){
     var jarnac = await rl.Jarnac();
     if (jarnac == "1"){
@@ -167,18 +170,42 @@ async function nvMot(joueur, main, plateau){
 async function Jarnac(joueur, otherMain, otherPlateau,volees,plateau){
     var ligne = await rl.getStolenWord();
     if (ligne !=8){
-        otherPlateau, volees = await gestion.retourMain(otherPlateau,Number(ligne),volees);
+        var tmpPlateau, volees = await gestion.retourMain(otherPlateau,Number(ligne),volees);
     }
     var lettres = await rl.getStolenLetters();
     volees = await gestion.ajouteMain(lettres,volees);
-    var motVolees = ""
+    var motVolees = "";
     for (var lettre of volees){
         motVolees += lettre;
     }
-    otherMain = gestion.enleveMain(motVolees,otherMain);
-    volees, plateau = await nvMot(joueur,volees,plateau);
+    var tmpMain = gestion.enleveMain(motVolees,otherMain);
+    //volees, plateau = await nvMot(joueur,volees,plateau);
+    
+    var inputMot = await rl.getMot();
+    
+    if (verif.verifLettres(inputMot, volees) == true){
+        verif.verifMot(inputMot)
+            .then(async (result) =>{
+                console.log(result);
+                volees = await gestion.enleveMain(inputMot,volees);
+                plateau = await gestion.ajoutPlateau(inputMot, plateau);
+                const data = "Lettres piochées par le joueur "+ joueur +" : "+ volees.join(" ; ") +"\nPlateau J"+ joueur +" :\n"+ plateau.join("\n")+"\n";
+                fs.appendFile(file, data, handleError);
+                console.log(data)
+                otherMain, otherPlateau = tmpMain, tmpPlateau;
+            })
+            .catch(async (error) =>{
+                console.log(error);
+            });
+    }else{
+        console.log(verif.verifLettres(inputMot, main));
+    }     
+    
+    
     return volees, plateau;
 }
+
+
 /* const data = "Lettres piochées par le joueur 1 : "+ mainTest.join(" ; ") +"\nPlateau J1 :\n"+ plateauJ1.join("\n")+"\n";
 fs.writeFile(file, data, handleError); */
 
