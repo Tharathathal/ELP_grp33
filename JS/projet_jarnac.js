@@ -179,7 +179,8 @@ async function Jarnac(joueur, otherMain, otherPlateau,volees,plateau){
     for (var lettre of volees){
         motVolees += lettre;
     }
-    var tmpMain = gestion.enleveMain(motVolees,otherMain);
+    var tmpMain = otherMain;
+    tmpMain = gestion.enleveMain(motVolees,tmpMain);
     //volees, plateau = await nvMot(joueur,volees,plateau);
     
     var inputMot = await rl.getMot();
