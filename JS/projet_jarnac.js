@@ -169,8 +169,9 @@ async function nvMot(joueur, main, plateau){
 
 async function Jarnac(joueur, otherMain, otherPlateau,volees,plateau){
     var ligne = await rl.getStolenWord();
+    var tmpPlateau = otherPlateau;
     if (ligne !=8){
-        var tmpPlateau, volees = await gestion.retourMain(otherPlateau,Number(ligne),volees);
+        tmpPlateau, volees = await gestion.retourMain(tmpPlateau,Number(ligne),volees);
     }
     var lettres = await rl.getStolenLetters();
     volees = await gestion.ajouteMain(lettres,volees);

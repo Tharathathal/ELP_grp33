@@ -1,6 +1,6 @@
 Nouvelle partie
 
-Lettres piochées par le joueur 1 : m ; a ; p ; a ; t ; u
+Lettres piochées par le joueur 1 : t ; a ; l ; o ; b ; a
 Plateau J1 :
    ,   ,   ,   ,   ,   ,   ,   ,   
    ,   ,   ,   ,   ,   ,   ,   ,   
@@ -10,27 +10,7 @@ Plateau J1 :
    ,   ,   ,   ,   ,   ,   ,   ,   
    ,   ,   ,   ,   ,   ,   ,   ,   
    ,   ,   ,   ,   ,   ,   ,   ,   
-Lettres piochées par le joueur 1 : m ; a ; p ; a ; t ; u ; o
-Plateau J1 :
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-Lettres piochées par le joueur 1 : p ; a ; u ; o
-Plateau J1 :
- m , a , t ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-Lettres piochées par le joueur 2 : u ; n ; a ; o ; n ; b
+Lettres piochées par le joueur 2 : a ; e ; a ; e ; r ; e
 Plateau J2 :
    ,   ,   ,   ,   ,   ,   ,   ,   
    ,   ,   ,   ,   ,   ,   ,   ,   
@@ -40,89 +20,9 @@ Plateau J2 :
    ,   ,   ,   ,   ,   ,   ,   ,   
    ,   ,   ,   ,   ,   ,   ,   ,   
    ,   ,   ,   ,   ,   ,   ,   ,   
-Lettres piochées par le joueur 2 : u ; n ; a ; o ; n ; b ; o
+Lettres piochées par le joueur 2 : 
 Plateau J2 :
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-Lettres piochées par le joueur 1 : u ; a ; n ; o
-Plateau J1 :
- b , o , n ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-Lettres piochées par le joueur 1 : p ; a ; u ; o ; h
-Plateau J1 :
- m , a , t ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-Lettres piochées par le joueur 2 : u ; a ; n ; o ; d
-Plateau J2 :
- b , o , n ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-Lettres piochées par le joueur 2 : u ; a ; n ; o ; d ; f
-Plateau J2 :
- b , o , n ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-Lettres piochées par le joueur 1 : u ; a ; f
-Plateau J1 :
- b , o , n ,   ,   ,   ,   ,   ,   
- d , o , n ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-Lettres piochées par le joueur 1 : p ; a ; u ; o ; h ; a
-Plateau J1 :
- m , a , t ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-Lettres piochées par le joueur 1 : 
-Plateau J1 :
- m , a , t ,   ,   ,   ,   ,   ,   
- f , o , n , d ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-Lettres piochées par le joueur 2 : u ; a ; s
-Plateau J2 :
- b , o , n ,   ,   ,   ,   ,   ,   
+ b , o , l ,   ,   ,   ,   ,   ,   
    ,   ,   ,   ,   ,   ,   ,   ,   
    ,   ,   ,   ,   ,   ,   ,   ,   
    ,   ,   ,   ,   ,   ,   ,   ,   
